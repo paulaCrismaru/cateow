@@ -1,55 +1,37 @@
-MAX_LEN_LINE = 39
-LINE_TEMPLATE = "{margin_left} {text} {margin_right}"
+from __future__ import print_function
+
+import click
+import inspect
+import os
+import random
 
 
-def split_text_in_lines(text, max_len_length):
-    lines = []
-    line = ""
-    for word in text.split():
-        if len(line) + len(word) + 1 <= max_len_length:
-            if line == '':
-                line = word
-            else:
-                line = ' '.join([line, word])
-        else:
-            lines.append(line)
-            line = word
-    lines.append(line)
-    return lines
+from . import utils
 
-
-def make_balloon(text):
-    lines = split_text_in_lines(text, MAX_LEN_LINE)
-    len_longest_line = max([len(line) for line in lines])
-    balloon = []
-    balloon.append(LINE_TEMPLATE.format(
-        text="_" * len_longest_line, margin_left=' ', margin_right=' '))
-    for line in lines:
-        if lines.index(line) == 0:
-            if len(lines) == 1:
-                margin_left = '<'
-                margin_right = '>'
-            else:
-                margin_left = '/'
-                margin_right = '\\'
-        elif lines.index(line) == len(lines) - 1:
-            margin_left = '\\'
-            margin_right = '/'
-        else:
-            margin_left = margin_right = '|'
-        if len(line) < len_longest_line:
-            line = "{line}{spaces}".format(
-                line=line, spaces=" " * (len_longest_line - len(line)))
-        balloon.append(LINE_TEMPLATE.format(
-            text=line, margin_left=margin_left, margin_right=margin_right))
-    balloon.append(LINE_TEMPLATE.format(
-        text="-" * len_longest_line, margin_left=' ', margin_right=' '))
-    return '\n'.join(balloon)
+KITTIES_PATH = 'kitties'
+MEANIES_FILE_PATH = os.sep.join(['meanies', 'meanies.mean'])
 
 
 def cateow(text, kitty):
     try:
-        balloon = make_balloon(text)
-        print str(kitty).format(balloon=balloon, way="\\")
+        balloon = utils.make_balloon(text)
+        return str(kitty).format(balloon=balloon, way="\\")
     except Exception:
         pass
+
+
+@click.command()
+@click.option('--meanie', default=None, help='What kitty will say')
+def cli(meanie):
+    file_path = os.path.dirname(
+        os.path.abspath(inspect.getfile(inspect.currentframe())))
+    path = os.sep.join([file_path, KITTIES_PATH])
+    if meanie is None:
+        meanies_path = os.sep.join([file_path, MEANIES_FILE_PATH])
+        meanie = random.choice(open(meanies_path).readlines())
+    if os.path.isdir(path):
+        file = random.choice(os.listdir(path))
+        with open(os.sep.join([path, file]), 'rb') as f:
+            kitty = f.read()
+
+        print(cateow(meanie, kitty))
