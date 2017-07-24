@@ -14,6 +14,8 @@ MEANIES_FILE_PATH = os.sep.join(['meanies', 'meanies.mean'])
 
 def cateow(text, kitty):
     balloon = utils.make_balloon(text)
+    for character, replacement in utils.ESCAPE_CHARACTERS:
+        kitty = utils.escape_character(kitty, character, replacement)
     try:
         return str(kitty).format(balloon=balloon, way="\\")
     except (KeyError, ValueError):

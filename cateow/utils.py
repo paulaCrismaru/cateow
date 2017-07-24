@@ -1,5 +1,11 @@
+import re
+
 MAX_LEN_LINE = 39
 LINE_TEMPLATE = "{margin_left} {text} {margin_right}"
+ESCAPE_CHARACTERS = [
+    ('{', '{{'),
+    ('}', '}}')
+]
 
 
 def split_text_in_lines(text, max_len_length):
@@ -45,3 +51,14 @@ def make_balloon(text):
     balloon.append(LINE_TEMPLATE.format(
         text="-" * len_longest_line, margin_left=' ', margin_right=' '))
     return '\n'.join(balloon)
+
+
+def escape_character(my_string, character, replace_with, ignore_first=3):
+    character_count = my_string.count(character)
+    if character_count <= ignore_first:
+        return my_string
+    revert_string = my_string[::-1]
+    revert_string = re.sub(character, replace_with,
+                           revert_string,
+                           count=character_count - ignore_first)
+    return revert_string[::-1]
