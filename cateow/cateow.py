@@ -31,7 +31,7 @@ def cli(meanie):
         meanie = random.choice(open(meanies_path).readlines())
     if os.path.isdir(path):
         file = random.choice(os.listdir(path))
-        with open(os.sep.join([path, file]), 'rb') as f:
+        with open(os.sep.join([path, file]), 'r') as f:
             kitty = f.read()
 
         print(cateow(meanie, kitty))
