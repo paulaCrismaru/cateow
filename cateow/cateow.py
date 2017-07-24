@@ -38,6 +38,7 @@ def cli(meanie, kitty, meanies):
                 meanies_path = os.sep.join([os.curdir, meanies])
             if not os.path.isfile(meanies_path):
                 print("No such file: '{}'".format(meanies_path))
+                exit(1)
         meanie = random.choice(open(meanies_path).readlines())
 
     if kitty is None:
@@ -51,7 +52,9 @@ def cli(meanie, kitty, meanies):
             kitty_file_path = os.sep.join([os.curdir, kitty])
         if not os.path.isfile(kitty_file_path):
             print("No such file: '{}'".format(kitty_file_path))
+            exit(1)
 
     with open(kitty_file_path, 'r') as kitty_file:
         kitty = kitty_file.read()
     print(cateow(meanie, kitty))
+    exit(0)
