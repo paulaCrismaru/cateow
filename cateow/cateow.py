@@ -23,14 +23,21 @@ def cateow(text, kitty):
 
 
 @click.command()
+@click.option('--meanies', default=None,
+              help='Path to a specific file with mean phrases')
 @click.option('--kitty', default=None, help='Path to a specific kitty file')
 @click.option('--meanie', default=None, help='What kitty will say')
-def cli(meanie, kitty):
+def cli(meanie, kitty, meanies):
     file_path = os.path.dirname(
         os.path.abspath(inspect.getfile(inspect.currentframe())))
 
     if meanie is None:
         meanies_path = os.sep.join([file_path, MEANIES_FILE_PATH])
+        if meanies is not None:
+            if not os.path.isabs(meanies):
+                meanies_path = os.sep.join([os.curdir, meanies])
+            if not os.path.isfile(meanies_path):
+                print("No such file: '{}'".format(meanies_path))
         meanie = random.choice(open(meanies_path).readlines())
 
     if kitty is None:
