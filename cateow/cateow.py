@@ -13,11 +13,11 @@ MEANIES_FILE_PATH = os.sep.join(['meanies', 'meanies.mean'])
 
 
 def cateow(text, kitty):
+    balloon = utils.make_balloon(text)
     try:
-        balloon = utils.make_balloon(text)
         return str(kitty).format(balloon=balloon, way="\\")
-    except Exception:
-        pass
+    except (KeyError, ValueError):
+        return "Kitty formating failed :("
 
 
 @click.command()
@@ -30,8 +30,7 @@ def cli(meanie):
         meanies_path = os.sep.join([file_path, MEANIES_FILE_PATH])
         meanie = random.choice(open(meanies_path).readlines())
     if os.path.isdir(path):
-        file = random.choice(os.listdir(path))
-        with open(os.sep.join([path, file]), 'r') as f:
-            kitty = f.read()
-
+        kitty_file_name = random.choice(os.listdir(path))
+        with open(os.sep.join([path, kitty_file_name]), 'r') as kitty_file:
+            kitty = kitty_file.read()
         print(cateow(meanie, kitty))
