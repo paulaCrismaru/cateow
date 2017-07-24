@@ -23,16 +23,28 @@ def cateow(text, kitty):
 
 
 @click.command()
+@click.option('--kitty', default=None, help='Path to a specific kitty file')
 @click.option('--meanie', default=None, help='What kitty will say')
-def cli(meanie):
+def cli(meanie, kitty):
     file_path = os.path.dirname(
         os.path.abspath(inspect.getfile(inspect.currentframe())))
-    path = os.sep.join([file_path, KITTIES_PATH])
+
     if meanie is None:
         meanies_path = os.sep.join([file_path, MEANIES_FILE_PATH])
         meanie = random.choice(open(meanies_path).readlines())
-    if os.path.isdir(path):
-        kitty_file_name = random.choice(os.listdir(path))
-        with open(os.sep.join([path, kitty_file_name]), 'r') as kitty_file:
-            kitty = kitty_file.read()
-        print(cateow(meanie, kitty))
+
+    if kitty is None:
+        path = os.sep.join([file_path, KITTIES_PATH])
+        if os.path.isdir(path):
+            kitty_file_name = random.choice(os.listdir(path))
+            kitty_file_path = os.sep.join([path, kitty_file_name])
+    else:
+        kitty_file_path = kitty
+        if not os.path.isabs(kitty):
+            kitty_file_path = os.sep.join([os.curdir, kitty])
+        if not os.path.isfile(kitty_file_path):
+            print("No such file: '{}'".format(kitty_file_path))
+
+    with open(kitty_file_path, 'r') as kitty_file:
+        kitty = kitty_file.read()
+    print(cateow(meanie, kitty))
