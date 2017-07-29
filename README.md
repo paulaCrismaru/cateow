@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/paulaCrismaru/cateow.svg?branch=master)](https://travis-ci.org/paulaCrismaru/cateow)
 # cateow
 It's like cowsay but in Python. And with a cat. Saying things. Like cowsay. But in Python.
 
