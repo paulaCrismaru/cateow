@@ -1,6 +1,6 @@
 import re
 
-import constants
+from cateow import constants
 
 
 class CateowException(Exception):

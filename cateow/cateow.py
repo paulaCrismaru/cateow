@@ -3,8 +3,8 @@ from __future__ import print_function
 import os
 import random
 
-import constants
-import utils
+from cateow import constants
+from cateow import utils
 
 
 def cateow(text, kitty_template):
