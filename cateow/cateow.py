@@ -1,60 +1,58 @@
 from __future__ import print_function
 
-import click
-import inspect
 import os
 import random
 
 
-from . import utils
-
-KITTIES_PATH = 'kitties'
-MEANIES_FILE_PATH = os.sep.join(['meanies', 'meanies.mean'])
+import constants
+import utils
 
 
-def cateow(text, kitty):
+def cateow(text, kitty_template):
     balloon = utils.make_balloon(text)
-    for character, replacement in utils.ESCAPE_CHARACTERS:
-        kitty = utils.escape_character(kitty, character, replacement)
+    kitty_template = escape_kitty_template(kitty_template)
     try:
-        return str(kitty).format(balloon=balloon, way="\\")
+        return str(kitty_template).format(balloon=balloon, way="\\")
     except (KeyError, ValueError):
-        return "Kitty formating failed :("
+        raise utils.CateowException(
+            "Kitty formating failed :(")
 
 
-@click.command()
-@click.option('--meanies', default=None,
-              help='Path to a specific file with mean phrases')
-@click.option('--kitty', default=None, help='Path to a specific kitty file')
-@click.option('--meanie', default=None, help='What kitty will say')
-def cli(meanie, kitty, meanies):
-    file_path = os.path.dirname(
-        os.path.abspath(inspect.getfile(inspect.currentframe())))
+def get_meanie(meanies_path):
+    if meanies_path is None:
+        meanies_path = os.sep.join([os.path.dirname(__file__),
+                                    constants.MEANIES_FILE_PATH])
+    else:
+        if not os.path.isabs(meanies_path):
+            meanies_path = os.sep.join([os.getcwd(), meanies_path])
+        if not os.path.isfile(meanies_path):
+            raise utils.CateowException(
+                "No such file: '{}'".format(meanies_path))
+    with open(meanies_path) as meanies_file:
+        meanie = random.choice(meanies_file.readlines())
+    return meanie
 
-    if meanie is None:
-        meanies_path = os.sep.join([file_path, MEANIES_FILE_PATH])
-        if meanies is not None:
-            if not os.path.isabs(meanies):
-                meanies_path = os.sep.join([os.curdir, meanies])
-            if not os.path.isfile(meanies_path):
-                print("No such file: '{}'".format(meanies_path))
-                exit(1)
-        meanie = random.choice(open(meanies_path).readlines())
 
-    if kitty is None:
-        path = os.sep.join([file_path, KITTIES_PATH])
+def get_kitty(kitty_file_path):
+    if kitty_file_path is None:
+        path = os.sep.join([os.path.dirname(__file__), constants.KITTIES_PATH])
         if os.path.isdir(path):
             kitty_file_name = random.choice(os.listdir(path))
             kitty_file_path = os.sep.join([path, kitty_file_name])
     else:
-        kitty_file_path = kitty
-        if not os.path.isabs(kitty):
-            kitty_file_path = os.sep.join([os.curdir, kitty])
-        if not os.path.isfile(kitty_file_path):
-            print("No such file: '{}'".format(kitty_file_path))
-            exit(1)
+        if not os.path.isabs(kitty_file_path):
+            kitty_file_path = os.sep.join([os.getcwd(), kitty_file_path])
+    if not os.path.isfile(kitty_file_path):
+        raise utils.CateowException(
+            "No such file: '{}'".format(kitty_file_path))
 
     with open(kitty_file_path, 'r') as kitty_file:
         kitty = kitty_file.read()
-    print(cateow(meanie, kitty))
-    exit(0)
+    return kitty
+
+
+def escape_kitty_template(kitty_template):
+    for character, replacement in constants.ESCAPE_CHARACTERS:
+        kitty_template = utils.escape_character(
+            kitty_template, character, replacement)
+    return kitty_template

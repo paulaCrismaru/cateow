@@ -19,9 +19,9 @@ setup(
         ],
     },
     install_requires=[
-        'Click',
+        'Click', 'setuptools'
     ],
     entry_points={
-        'console_scripts': ['cateow=cateow.cateow:cli'],
+        'console_scripts': ['cateow=cateow.shell:cli'],
     }
 )
