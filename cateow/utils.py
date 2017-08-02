@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 import re
 
 from cateow import constants
@@ -19,7 +21,7 @@ def split_text_in_lines(text):
     max_len_length = constants.MAX_LEN_LINE
     lines = []
     phrases = text.split('\n')
-    phrases = list(filter(lambda x: x != '', phrases))
+    phrases = [phrase for phrase in phrases if phrase != '']
     for phrase in phrases:
         current_phrase = phrase
         while len(current_phrase) > max_len_length:

@@ -1,14 +1,17 @@
+from __future__ import absolute_import
+
 import os
 import unittest
-
-from cateow import utils
-from cateow import cateow as cateow_py
-from cateow.unittests import test_utils
 
 try:
     import unittest.mock as mock
 except ImportError:
     import mock
+
+
+from cateow import utils
+from cateow import cateow as cateow_py
+from cateow.unittests import test_utils
 
 
 class TestCateow(unittest.TestCase):
