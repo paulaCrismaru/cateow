@@ -12,7 +12,7 @@ from cateow import utils
               help='Path to a specific file with mean phrases')
 @click.option('--kitty', default=None, help='Path to a specific kitty file')
 @click.option('--meanie', default=None, help='What kitty will say')
-def cli(meanie, kitty, meanies):
+def cli(meanie=None, kitty=None, meanies=None):
     # pylint: disable=no-member
     try:
         if meanie is None:
@@ -24,3 +24,7 @@ def cli(meanie, kitty, meanies):
         sys.exit(1)
     click.echo(kitty_cat)
     sys.exit(0)
+
+
+if __name__ == '__main__':
+    cli(sys.argv[1:])
