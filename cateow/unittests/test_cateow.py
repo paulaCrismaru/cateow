@@ -11,7 +11,7 @@ except ImportError:
 
 from cateow import utils
 from cateow import cateow as cateow_py
-from cateow.unittests import test_utils
+from cateow.unittests import testutils
 
 
 class TestCateow(unittest.TestCase):
@@ -21,9 +21,9 @@ class TestCateow(unittest.TestCase):
     def test_cateow(self, mock_make_balloon,
                     mock_escape):
         mock_make_balloon.return_value = "fake_balloon"
-        mock_escape.return_value = test_utils.VALID_KITTY_TEMPLATE
+        mock_escape.return_value = testutils.VALID_KITTY_TEMPLATE
         result = cateow_py.cateow(None, None)
-        expected_result = test_utils.VALID_KITTY_TEMPLATE.format(
+        expected_result = testutils.VALID_KITTY_TEMPLATE.format(
             balloon=mock_make_balloon.return_value, way="\\")
 
         self.assertEqual(result, expected_result)
@@ -32,7 +32,7 @@ class TestCateow(unittest.TestCase):
     @mock.patch('cateow.utils.make_balloon')
     def test_cateow_format_fails(self, mock_make_balloon,
                                  mock_escape):
-        mock_escape.return_value = test_utils.INVALID_KITTY_TEMPLATE
+        mock_escape.return_value = testutils.INVALID_KITTY_TEMPLATE
         with self.assertRaises(utils.CateowException) as ex:
             cateow_py.cateow(None, None)
         self.assertEqual(str(ex.exception), "Kitty formating failed :(")

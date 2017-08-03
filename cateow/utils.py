@@ -26,11 +26,12 @@ def split_text_in_lines(text):
         current_phrase = phrase
         while len(current_phrase) > max_len_length:
             space_character_distance = 0
-            if current_phrase[max_len_length] != ' ':
-                space_character_distance = get_last_space_index(current_phrase)
+            if current_phrase[max_len_length - 1] != ' ':
+                space_character_distance = get_last_space_index(
+                    current_phrase[:max_len_length])
             space_character_index = max_len_length - space_character_distance
-            lines.append(current_phrase[:space_character_index])
-            current_phrase = current_phrase[space_character_index + 1:]
+            lines.append(current_phrase[:space_character_index - 1])
+            current_phrase = current_phrase[space_character_index:]
         lines.append(current_phrase)
     return lines
 
@@ -67,7 +68,7 @@ def make_balloon(text):
     Returns:
         A balloon containing the text specified.
     """
-    lines = split_text_in_lines(text, constants.MAX_LEN_LINE)
+    lines = split_text_in_lines(text)
     len_longest_line = max([len(line) for line in lines])
     balloon = []
     balloon.append(constants.LINE_TEMPLATE.format(
@@ -126,7 +127,7 @@ def escape_character(input_string, sequence, replace_with, ignore_first=3):
     return revert_string[::-1]
 
 
-def get_last_space_index(input_string, start=0):
+def get_last_space_index(input_string, start=None):
     """Finds the last space character in a substring of `input_string`
     starting from the `start` index.
 
@@ -135,4 +136,4 @@ def get_last_space_index(input_string, start=0):
             searched
         start (int, optional): index showing where the substring starts.
         Default value is 0."""
-    return input_string[start::-1].find(' ')
+    return input_string[start:][::-1].find(' ')

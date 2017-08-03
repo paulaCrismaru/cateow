@@ -16,9 +16,9 @@ $ pip install .
 ```sh
 $ cateow
 ```
-- Expect a random kitty saying "Pet me human!"
+- Expect a random kitty saying "Pet me! Meow"
 ```sh
-$ cateow --meanie "Pet me human!"
+$ cateow --meanie "Pet me, you human slave!"
 ```
 
 # customize
