@@ -12,11 +12,11 @@ $ pip install .
 ```
 
 # usage
-- Expect a random kitty with a random text.
+- Expect a random kitty with a random textaaa.
 ```sh
 $ cateow
 ```
-- Expect a random kitty saying "Pet me human!"
+- Expect a random kitty saying "Pet me humaaaaaan!"
 ```sh
 $ cateow --meanie "Pet me human!"
 ```
