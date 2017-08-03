@@ -22,7 +22,7 @@ $ cateow --kitty /path/to/file/containing/kitty
 ```
 - Expect a random kitty saying "Pet me human!"
 ```sh
-$ cateow --meanie "Pet me human!"
+$ cateow --meanie "Pet me human,human slave!!"
 ```
 - Expect a random kitty saying something random from the given file
 ```sh
