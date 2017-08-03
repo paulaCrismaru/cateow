@@ -16,6 +16,8 @@ $ pip install .
 ```sh
 $ cateow
 ```
+
+CEVA amuzant
 - Expect a random kitty saying "Schimbare!"
 ```sh
 $ cateow --meanie "Schimbare!"
