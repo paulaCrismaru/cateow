@@ -16,20 +16,27 @@ $ pip install .
 ```sh
 $ cateow
 ```
+- Expect a random kitty saying "Pet me human!"
+**!!! Option `meanie` became deprecated !!!**
+~~$ cateow --meanie "Pet me human!"~~
+```sh
+$ cateow "Pet me human!"
+```
 - Expect the given kitty saying something random
 ```sh
 $ cateow --kitty /path/to/file/containing/kitty
-```
-- Expect a random kitty saying "Pet me human!"
-```sh
-$ cateow --meanie "Pet me human!"
 ```
 - Expect a random kitty saying something random from the given file
 ```sh
 $ cateow --meanies /path/to/file/containing/mean/stuff
 ```
+~~If both `meanies` and `meanie` options are given, `meanies` will be ignored.~~
+If both specified text and `meanie` option are given, `meanies` will be ignored.
 
-If both `meanies` and `meanie` options are given, `meanies` will be ignored.
+- Use _cateow_ with your prefered text generator. Expect a kitty saying something wise
+```sh
+$ fortune | cateow
+```
 
 # customize
 Add your kitties in your next to be favorite folder and add your mean phrases in a demanding file and enjoy the magic.
