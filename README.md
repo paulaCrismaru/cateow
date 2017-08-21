@@ -19,6 +19,9 @@ $ cateow
 - Expect the given kitty saying something random
 ```sh
 $ cateow --kitty /path/to/file/containing/kitty
+- Expect a random kitty thinking something random.
+```sh
+$ cateow --thinks
 ```
 - Expect a random kitty saying "Pet me human!"
 **!!! Option `meanie` became deprecated !!!**
