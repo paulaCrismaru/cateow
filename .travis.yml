@@ -7,9 +7,8 @@ python:
 
 install: 
   - pip install tox
-  - pip install coveralls
 script: tox
 notifications:
   email: false
 after_success:
-  coveralls
+  - "coveralls -i"
