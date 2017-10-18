@@ -8,7 +8,7 @@ from cateow import constants
 from cateow import utils
 
 
-def cateow(text, kitty_template):
+def cateow(text, kitty_template, way="\\"):
     """Creates a kitty using the `kitty_template` with the specified `text`
     wrapped in a balloon
 
@@ -26,7 +26,7 @@ def cateow(text, kitty_template):
     balloon = utils.make_balloon(text)
     kitty_template = escape_kitty_template(kitty_template)
     try:
-        return str(kitty_template).format(balloon=balloon, way="\\")
+        return str(kitty_template).format(balloon=balloon, way=way)
     except (KeyError, ValueError):
         raise utils.CateowException(
             "Kitty formating failed :(")

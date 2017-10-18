@@ -1,5 +1,20 @@
 [![Build Status](https://travis-ci.org/paulaCrismaru/cateow.svg?branch=master)](https://travis-ci.org/paulaCrismaru/cateow)
+[![Coverage Status](https://coveralls.io/repos/github/paulaCrismaru/cateow/badge.svg?branch=master)](https://coveralls.io/github/paulaCrismaru/cateow?branch=master)
 # cateow
+
+ ```
+  _______________________________________  
+< I will sit on your face while you sleep >
+  ---------------------------------------  
+    \
+     \
+      ,/|         _.--''^``-...___.._.,;
+     /, \'.     _-'          ,--,,,--'''
+    { \    `_-''       '    /}
+     `;;'            ;   ; ;
+ ._.--''     ._,,, _..'  .;.'
+  (,_....----'''     (,..--''
+```
 It's like cowsay but in Python. And with a cat. Saying things. Like cowsay. But in Python.
 
 cats: https://user.xmission.com/~emailbox/ascii_cats.htm
@@ -12,15 +27,15 @@ $ pip install .
 ```
 
 # usage
-- Expect a random kitty with a random text.
+- Random kitty with a random text.
 ```sh
 $ cateow
 ```
-- Expect the given kitty saying something random
+- Random kitty thinking something random.
 ```sh
-$ cateow --kitty /path/to/file/containing/kitty
+$ cateow --thinks
 ```
-- Expect a random kitty saying "Pet me human!"
+- Random kitty saying "Pet me human!"
 **!!! Option `meanie` became deprecated !!!**
 ~~$ cateow --meanie "Pet me human!"~~
 ```sh
@@ -30,14 +45,14 @@ $ cateow "Pet me human!"
 ```sh
 $ cateow --kitty /path/to/file/containing/kitty
 ```
-- Expect a random kitty saying something random from the given file
+- Random kitty saying something random from the given file
 ```sh
 $ cateow --meanies /path/to/file/containing/mean/stuff
 ```
 ~~If both `meanies` and `meanie` options are given, `meanies` will be ignored.~~
 If both specified text and `meanie` option are given, `meanies` will be ignored.
 
-- Use _cateow_ with your prefered text generator. Expect a kitty saying something wise
+- Pipe from standard input
 ```sh
 $ fortune | cateow
 ```
